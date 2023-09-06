@@ -1,21 +1,52 @@
-// [Template no Kotlin Playground](https://pl.kotl.in/WcteahpyN)
+enum class Nivel {INICIANTE, INTERMEDIARIO, AVANCADO}
 
-enum class Nivel { BASICO, INTERMEDIARIO, DIFICIL }
+class Usuario(var nome: String, var codigoAlu: Int)
 
-class Usuario
-
-data class ConteudoEducacional(var nome: String, val duracao: Int = 60)
+data class ConteudoEducacional(var nome: String, val duracao: Int = 35, val nivel: Nivel)
 
 data class Formacao(val nome: String, var conteudos: List<ConteudoEducacional>) {
-
-    val inscritos = mutableListOf<Usuario>()
     
-    fun matricular(usuario: Usuario) {
-        TODO("Utilize o parâmetro $usuario para simular uma matrícula (usar a lista de $inscritos).")
+    val inscritos = mutableListOf<Usuario>(
+     Usuario("Venilton", 1)
+    )
+    // Matricula aluno na formação
+    fun matricular(vararg usuarios: Usuario) {
+        for(usuario in usuarios)
+        inscritos.add(usuario)
     }
+    //Carrega dados dos conteudos da formação
+    fun carregarConteudos(){
+        for(conteudos in conteudos)
+        println(conteudos)
+    }
+    //Carrega dados dos alunos inscritos
+    fun carregarInscritos(){
+        for(inscrito in inscritos)
+        println("Aluno: ${inscrito.nome} | Identificação: ${inscrito.codigoAlu}")       
+    }
+    
+    
 }
 
 fun main() {
-    TODO("Analise as classes modeladas para este domínio de aplicação e pense em formas de evoluí-las.")
-    TODO("Simule alguns cenários de teste. Para isso, crie alguns objetos usando as classes em questão.")
+
+  var aluno = Usuario("Matheus", 20)
+  var aluna = Usuario("Marcia",34)
+  var alunoTres = Usuario("Antonio",64)
+                         
+  val listConteudo: List<ConteudoEducacional> = listOf(
+  	ConteudoEducacional("Git e Github", nivel = Nivel.INICIANTE),
+	ConteudoEducacional("Introdução ao Kotlin",  nivel = Nivel.INTERMEDIARIO),
+ 	ConteudoEducacional("Introdução ao Android Studio",  nivel = Nivel.INTERMEDIARIO),
+    ConteudoEducacional("Depurando aplicações mobile",  nivel = Nivel.AVANCADO)
+  )
+   
+  val forma = Formacao("MOBILE ANDROID",listConteudo)
+     println("Formação: ${forma.nome}")
+     forma.carregarConteudos()
+  	 println("Lista de Alunos!")
+     forma.carregarInscritos()
+     forma.matricular(aluno,aluna,alunoTres)
+     println("Lista atualizada com novos alunos!")
+     forma.carregarInscritos()
 }
